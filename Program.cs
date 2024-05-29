@@ -6,15 +6,22 @@ namespace EPICSWrapper
     {
         static void Main()
         {
-            EPICSProdClassWrapper wrapper = new EPICSProdClassWrapper();
+            var epicsWrapper = new EPICSProdClassWrapper();
 
-            // Set the LoginProfileName property with the desired value
-            string loginProfile = "MyEPICSLoginProfile.xml";
-            wrapper.LoginProfileName = loginProfile;
+            // Set properties if needed
+            epicsWrapper.LoginProfileName = "sussybaka";
+            epicsWrapper.TraceFilePath = @"C:\Temp\trace.log";
 
-            // Retrieve the LoginProfileName property and write it to the console
-            string retrievedProfileName = wrapper.LoginProfileName;
-            Console.WriteLine(retrievedProfileName);
+            // Call the GetNextProductNumber method
+            int Connection_var = epicsWrapper.InitializeConnectionFunc();
+            if (Connection_var != -1)
+            {
+                Console.WriteLine($"Next Product Number: {Connection_var}");
+            }
+            else
+            {
+                Console.WriteLine("Failed to get the next product number.");
+            }
         }
     }
 }
